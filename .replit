@@ -1,6 +1,7 @@
 modules = ["python-3.11"]
 [nix]
 channel = "stable-25_05"
+packages = ["libxcrypt"]
 
 [agent]
 expertMode = true
@@ -8,3 +9,27 @@ expertMode = true
 [[ports]]
 localPort = 8000
 externalPort = 80
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Library API"
+
+[[workflows.workflow]]
+name = "Library API"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python -m uvicorn main:app --host 0.0.0.0 --port 8000"
+waitForPort = 8000
+
+[workflows.workflow.metadata]
+outputType = "console"

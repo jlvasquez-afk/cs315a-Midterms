@@ -1,0 +1,1 @@
+- [Imported Python dependencies](python-package-install.md) — check `.pythonlibs` before retrying installs that fail against the read-only Nix store.
